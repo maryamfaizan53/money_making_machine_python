@@ -20,21 +20,17 @@ if st.button("Generate Money"):
 # Function to fetch side hustle ideas
 def fetch_side_hustle():
     try:
-        response = requests.get("https://api.publicapis.org/entries")
+        response = requests.get("http://127.0.0.1:8000/side_hustles")
         if response.status_code == 200:
-            hustles = response.json().get('entries', [])
-            if hustles:
-                random_hustle = random.choice(hustles)
-                return f"{random_hustle['API']} - {random_hustle['Description']}"
-            else:
-                return "No side hustles found!"
+            hustles = response.json()
+            return hustles["side_hustles"]
         else:
-            return "Freelancing"
+             return "Freelancing"
     except Exception as e:
         return "Something went wrong"
 
 st.subheader("🚀 Side Hustle Ideas 🚀")
-if st.button("Get Side Hustle Idea"):
+if st.button("Generate Idea"):
     idea = fetch_side_hustle()
     st.success(idea)
 
@@ -42,10 +38,10 @@ if st.button("Get Side Hustle Idea"):
 # Function to fetch money-related quotes
 def fetch_money_quotes():
     try:
-        response = requests.get("https://api.quotable.io/random")
+        response = requests.get("http://127.0.0.1:8000/money_quotes")
         if response.status_code == 200:
             quote = response.json()
-            return quote.get('content', "Money is a tool")
+            return quote["money_quote"]
         else:
             return "Money is a tool"
     except:
